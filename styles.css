@@ -1,110 +1,95 @@
-body {
-   background-color: #191919;
-   font-family: 'Inconsolata', monospace;
+/* GENERAL STYLING */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
+
+body {
+   font-family: 'Inconsolata', monospace;
+   background-color: #191919;
+}
+
+/* MAIN */
 
 .content {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding-top: 30px;
+    align-items: center;
     height: 100vh;
     min-height: 500px;
-    box-sizing: border-box;
 }
 
 .calculator {
-    height: 575px;
-    width: 410px;
     border: 1px solid #00C44A;
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
 }
 
 /* SCREEN */
 
-.display-screen {
-    height: 150px;
-    width: 380px;
-    margin-top: 10px;
-    border-radius: 20px;
-    border: 1px solid #00C44A;
+.screen {
+    background: #212121;
+    color: #00A840;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    text-align: right;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.previous-operand {
+    min-height: 25px;
+    font-size: 1.3rem;
+}
+
+.current-operand {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 50px;
+    font-size: 2rem;
 }
 
 /* BUTTONS */
 
-.btns-container {
-    height: 400px;
-    width: 380px;
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-
-.left-side-btns {
-    width: 295px;
-    min-width: 295px;
-}
-
-
-.top-btns {
-    display: flex;
-    margin-top: 5px;
-    gap: 15px;
-}
-
-.clear-btn, .delete-btn {
-    width: 140px;
-    height: 50px;
-    border-radius: 20px;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.number-btns {
+.btns-grid {
     display: grid;
-    place-items: center;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 15px;
-    margin-top: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
 }
 
-.operator-btns {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    gap: 10px;
-}
-
-.operator-btn {
-    background-color: #00AC41;
-}
-
-.bottom-btns {
-    display: flex;
-    gap: 15px;
-}
-
-.zero, .dot {
-    width: 130px;
-    height: 50px;
-    border-radius: 20px;
-}
-
-button {
+.btns-grid button {
     font-family: 'Inconsolata', monospace;
-    border: 1px solid #00C44A;
+    font-size: 1.5rem;
     background: transparent;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    color: #ffffff;
-    font-size: 2rem;
-    text-align: center;
+    border: 1px solid #00C44A;
+    color: #00C44A;
+    border-radius: 10px;
+    padding: 20px 30px;
+    cursor: pointer;
 }
+
+button.operator {
+   background: #00A840;
+   color: #191919;
+}
+
+button.clear-all, button.clear {
+    grid-column: span 2;
+}
+
+
+
+
+
+
+
+
+
 
