@@ -1,26 +1,50 @@
 
 
+const currentOperand = document.querySelector('.current-operand');
+const previousOperand = document.querySelector('.previous-operand');
+const clearBtn = document.querySelector('.clear');
+const clearAllBtn = document.querySelector('.clear-all');
+const decimalBtn = document.querySelector('.decimal');
+const equalsBtn = document.querySelector('.equals');
+const numberBtns = document.querySelectorAll('.number');
+const operatorBtns = document.querySelectorAll('.operator');
+
+
+// EVENT LISTENERS 
+
+numberBtns.forEach(button => {
+    button.addEventListener('click', () => {
+      const number = button.dataset.number;
+      console.log(number);
+   });
+});
+
+operatorBtns.forEach(button => {
+    button.addEventListener('click', () => {
+      const operator = button.id;
+      console.log(operator);
+    });
+  });
+
+
+
+// BASIC OPERATOR FUNCTIONS
+
 const add = (a, b) => {
-    let sum = a + b;
-    return sum;
-}
+    return a + b;
+};
 
 const subtract = (a, b) => {
-    let sum = a - b;
-    return sum;
-}
-
+    return a - b;
+};
 
 const multiply = (a, b) => {
-    let sum = a * b;
-    return sum;
-}
-
+    return a * b;
+};
 
 const divide = (a, b) => {
-    let sum = a / b;
-    return sum;
-}
+    return a / b;
+};
 
 
 const operate = (operator, a, b) => {
@@ -31,11 +55,10 @@ const operate = (operator, a, b) => {
         return subtract(a, b);
       case "*":
         return multiply(a, b);
-      case "/":
+      case "÷":
         return divide(a, b);
      default: 
        return "Invalid input";
     }
 };
 
-console.log(operate("+", 5, 10));
