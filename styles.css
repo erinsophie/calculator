@@ -27,8 +27,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     min-height: 500px;
+    padding-top: 35px;
 }
 
 .calculator {
@@ -40,23 +40,24 @@ body {
 
 /* SCREEN */
 
-.screen {
+.output {
     background: #212121;
     color: #00A840;
+    grid-column: 1 / -1;
     border-radius: 10px;
-    padding: 10px 20px;
-    margin-bottom: 20px;
+    padding: 10px 15px;
     text-align: right;
     word-wrap: break-word;
     word-break: break-all;
+    margin-bottom: 20px;
 }
 
-.previous-operand {
+.output .previous-operand {
     min-height: 25px;
     font-size: 1.3rem;
 }
 
-.current-operand {
+.output .current-operand {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -89,7 +90,7 @@ button.operator {
     border: none;
  }
  
- button.clear-all, button.clear {
+ button.all-clear, button.clear {
      grid-column: span 2;
  }
 

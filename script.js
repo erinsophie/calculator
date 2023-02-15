@@ -1,31 +1,11 @@
 
-
-const currentOperand = document.querySelector('.current-operand');
-const previousOperand = document.querySelector('.previous-operand');
-const clearBtn = document.querySelector('.clear');
-const clearAllBtn = document.querySelector('.clear-all');
-const decimalBtn = document.querySelector('.decimal');
-const equalsBtn = document.querySelector('.equals');
-const numberBtns = document.querySelectorAll('.number');
-const operatorBtns = document.querySelectorAll('.operator');
-
-
-// EVENT LISTENERS 
-
-numberBtns.forEach(button => {
-    button.addEventListener('click', () => {
-      const number = button.dataset.number;
-      console.log(number);
-   });
-});
-
-operatorBtns.forEach(button => {
-    button.addEventListener('click', () => {
-      const operator = button.id;
-      console.log(operator);
-    });
-  });
-
+const numberBtn = document.querySelectorAll('[data-number]');
+const operatorBtn = document.querySelectorAll('[data-operation]');
+const equalsBtn = document.querySelector('[data-equals]');
+const clearBtn = document.querySelector('[data-clear]');
+const allClearBtn = document.querySelector('[data-all-clear]');
+const currentOperand = document.querySelector('[data-current-operand]');
+const previousOperand = document.querySelector('[data-previous-operand]');
 
 
 // BASIC OPERATOR FUNCTIONS
