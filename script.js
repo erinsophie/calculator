@@ -7,6 +7,13 @@ const allClearBtn = document.querySelector('[data-all-clear]');
 const currentDisplay = document.querySelector('[data-current-operand]');
 const previousDisplay = document.querySelector('[data-previous-operand]');
 
+// EVENT LISTENERS
+
+numberBtn.forEach(button => button.addEventListener('click', () => appendNumber(button.textContent)));
+operatorBtn.forEach(button => button.addEventListener('click', () => setOperation(button.textContent)));
+clearBtn.addEventListener('click', clear);
+allClearBtn.addEventListener('click', allClear);
+
 
 //KEEP TRACK OF THE STATE OF THE CALCULATOR WITH CALCULATOR OBJECT 
 
@@ -16,7 +23,7 @@ const calculator = {
     operation: undefined,
 };
 
-// UPDATE THE DISPLAY WITH THE APPRPORIATE NUMBERS AND PREVIOUS NUMBERS  
+// UPDATE THE DISPLAY   
 
 function updateDisplay() {
     currentDisplay.textContent = calculator.currentOperand;
@@ -25,9 +32,6 @@ function updateDisplay() {
 
 //WHEN A BUTTON IS CLICKED, ASSIGN THE APPROPRIATE NUMEBR / OPERATION TO IT
 
-numberBtn.forEach(button => button.addEventListener('click', () => appendNumber(button.textContent)));
-
-operatorBtn.forEach(button => button.addEventListener('click', () => setOperation(button.textContent)));
 
 function appendNumber(number) {
     if (calculator.currentOperand === '0') {
@@ -40,10 +44,25 @@ function appendNumber(number) {
 
 function setOperation(operation) {
     calculator.operation = operation;
-    calculator.previousOperand = calculator.currentOperand;
-    calculator.currentOperand = '0';
+    calculator.previousOperand = `${calculator.currentOperand} ${calculator.operation}`;
+    calculator.currentOperand = '';
     updateDisplay();
 };
+
+// CLEAR SCREEN
+
+function clear() {
+    calculator.currentOperand = calculator.currentOperand.toString().slice(0, -1);
+    updateDisplay();
+}
+
+function allClear() {
+    calculator.currentOperand = '0';
+    calculator.previousOperand = '';
+    updateDisplay();
+}
+
+
 
 
 
