@@ -13,6 +13,7 @@ numberBtn.forEach(button => button.addEventListener('click', () => appendNumber(
 operatorBtn.forEach(button => button.addEventListener('click', () => setOperation(button.textContent)));
 clearBtn.addEventListener('click', clear);
 allClearBtn.addEventListener('click', allClear);
+equalsBtn.addEventListener('click', evaluate);
 
 
 //KEEP TRACK OF THE STATE OF THE CALCULATOR WITH CALCULATOR OBJECT 
@@ -30,17 +31,38 @@ function updateDisplay() {
     previousDisplay.textContent = calculator.previousOperand;
 };
 
-//WHEN A BUTTON IS CLICKED, ASSIGN THE APPROPRIATE NUMEBR / OPERATION TO IT
+//WHEN A BUTTON IS CLICKED ASSIGN THE APPROPRIATE NUMEBR 
+//DO NOT ALLOW USERS TO INPUT MORE THAN ONE DECIMAL POINT IF CURRENT OPERAND ALREADY INCLUDES ONE
+//DO NOT ALLOW CHARACTERS TO EXCEED THE SCREEN SIZE
 
 
 function appendNumber(number) {
-    if (calculator.currentOperand === '0') {
+    if(exceedsCurrent()) return;
+
+    if (number === "." && calculator.currentOperand.includes(".")) return;
+    if (calculator.currentOperand === "0" && number !== ".") {
         calculator.currentOperand = number;
-     } else {
-        calculator.currentOperand += number;
-     };
-      updateDisplay();
+    } else {
+        if (calculator.currentOperand === "0" && number === ".") {
+            calculator.currentOperand += number;
+      } else {
+            calculator.currentOperand += number;
+          }
+        }
+    updateDisplay();
 };
+
+//LIMIT CURRENT CHARACTER DISPLAY
+
+function exceedsCurrent() {
+    if (calculator.currentOperand.length >= 18) {
+        return true
+    }
+};
+
+//LIMIT PREVIOUS DISPLAY
+
+//SET OPERATION 
 
 function setOperation(operation) {
     calculator.operation = operation;
@@ -54,17 +76,48 @@ function setOperation(operation) {
 function clear() {
     calculator.currentOperand = calculator.currentOperand.toString().slice(0, -1);
     updateDisplay();
-}
+};
 
 function allClear() {
     calculator.currentOperand = '0';
     calculator.previousOperand = '';
     updateDisplay();
-}
+};
 
 
 
 
+// CALCULATE SUM WHEN EQUALS BUTTON IS CLICKED 
+
+function evaluate() {
+    let result;
+    const current = parseFloat(calculator.currentOperand);
+    const previous = parseFloat(calculator.previousOperand);
+    if (isNaN(current) || isNaN(previous) || !calculator.operation) {
+      return;
+    }
+    result = operate(calculator.operation, previous, current);
+    calculator.currentOperand = result.toString();
+    calculator.previousOperand = `${previous} ${calculator.operation} ${current} =`
+    calculator.operation = undefined;
+    updateDisplay();
+};
+
+
+const operate = (operator, a, b) => {
+    switch(operator) {
+      case "+":
+        return add(a, b);
+      case "-":
+        return subtract(a, b);
+      case "x":
+        return multiply(a, b);
+      case "÷":
+        return divide(a, b);
+     default: 
+       return "Invalid input";
+    }
+};
 
 
 // OPERATOR FUNCTIONS
@@ -86,18 +139,5 @@ const divide = (a, b) => {
 };
 
 
-const operate = (operator, a, b) => {
-    switch(operator) {
-      case "+":
-        return add(a, b);
-      case "-":
-        return subtract(a, b);
-      case "*":
-        return multiply(a, b);
-      case "÷":
-        return divide(a, b);
-     default: 
-       return "Invalid input";
-    }
-};
+
 
