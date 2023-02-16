@@ -4,11 +4,51 @@ const operatorBtn = document.querySelectorAll('[data-operation]');
 const equalsBtn = document.querySelector('[data-equals]');
 const clearBtn = document.querySelector('[data-clear]');
 const allClearBtn = document.querySelector('[data-all-clear]');
-const currentOperand = document.querySelector('[data-current-operand]');
-const previousOperand = document.querySelector('[data-previous-operand]');
+const currentDisplay = document.querySelector('[data-current-operand]');
+const previousDisplay = document.querySelector('[data-previous-operand]');
 
 
-// BASIC OPERATOR FUNCTIONS
+//KEEP TRACK OF THE STATE OF THE CALCULATOR WITH CALCULATOR OBJECT 
+
+const calculator = {
+    currentOperand: '0',
+    previousOperand: '',
+    operation: undefined,
+};
+
+// UPDATE THE DISPLAY WITH THE APPRPORIATE NUMBERS AND PREVIOUS NUMBERS  
+
+function updateDisplay() {
+    currentDisplay.textContent = calculator.currentOperand;
+    previousDisplay.textContent = calculator.previousOperand;
+};
+
+//WHEN A BUTTON IS CLICKED, ASSIGN THE APPROPRIATE NUMEBR / OPERATION TO IT
+
+numberBtn.forEach(button => button.addEventListener('click', () => appendNumber(button.textContent)));
+
+operatorBtn.forEach(button => button.addEventListener('click', () => setOperation(button.textContent)));
+
+function appendNumber(number) {
+    if (calculator.currentOperand === '0') {
+        calculator.currentOperand = number;
+     } else {
+        calculator.currentOperand += number;
+     };
+      updateDisplay();
+};
+
+function setOperation(operation) {
+    calculator.operation = operation;
+    calculator.previousOperand = calculator.currentOperand;
+    calculator.currentOperand = '0';
+    updateDisplay();
+};
+
+
+
+
+// OPERATOR FUNCTIONS
 
 const add = (a, b) => {
     return a + b;
