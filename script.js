@@ -68,6 +68,11 @@ function exceedsCurrent() {
 
 
 function setOperation(operation) {
+    if (calculator.currentOperand === '0') return;
+    if (calculator.currentOperand !== '' && calculator.previousOperand !== '') return;
+    if (calculator.previousOperand !== '' && calculator.currentOperand === '') return;
+
+
     calculator.operation = operation;
     calculator.previousOperand = `${calculator.currentOperand} ${calculator.operation}`;
     calculator.currentOperand = '';
@@ -112,6 +117,8 @@ function evaluate() {
     updateDisplay();
 };
 
+
+
 // Display large numbers using scientific notation 
 // if result has more than 10 digits before decimal point convert to scientifc notation which displays 1 digit to 6 decimal places
 // otherwise reduce any other result that is under that threshold but includes a decimal place to 2 decimal places 
@@ -120,10 +127,10 @@ function evaluate() {
 function formatNumber(number) {
   const threshold = 1e10; 
   if (Math.abs(number) >= threshold) {
-    return number.toExponential(6); // 6 decimal places
+    return number.toExponential(6);
   } else {
      if (number.toString().includes('.')) {
-     return number.toFixed(2); // if result includes decimal point, round to 2 decimal places 
+     return number.toFixed(2); 
   } else {
     return number.toString();
    }
