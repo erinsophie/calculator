@@ -42,7 +42,7 @@ function updateDisplay() {
 function appendNumber(number) {
     if(exceedsCurrent()) return;
 
-    if (number === "." && calculator.currentOperand.includes(".")) return;
+    if (number === "." && calculator.currentOperand.includes(".") || number === "." && calculator.currentOperand === '') return;
 
     if (calculator.currentOperand === "0" && number !== ".") {
         calculator.currentOperand = number;
@@ -71,7 +71,6 @@ function setOperation(operation) {
     if (calculator.currentOperand === '0') return;
     if (calculator.currentOperand !== '' && calculator.previousOperand !== '') return;
     if (calculator.previousOperand !== '' && calculator.currentOperand === '') return;
-
 
     calculator.operation = operation;
     calculator.previousOperand = `${calculator.currentOperand} ${calculator.operation}`;
