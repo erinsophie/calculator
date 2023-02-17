@@ -41,6 +41,7 @@ function updateDisplay() {
 
 function appendNumber(number) {
     if(exceedsCurrent()) return;
+    if(calculator.previousOperand.includes("=")) return;
 
     if (number === "." && calculator.currentOperand.includes(".") || number === "." && calculator.currentOperand === '') return;
 
@@ -69,9 +70,7 @@ function exceedsCurrent() {
 
 function setOperation(operation) {
     if (calculator.currentOperand === '0') return;
-    if (calculator.currentOperand !== '' && calculator.previousOperand !== '') return;
-    if (calculator.previousOperand !== '' && calculator.currentOperand === '') return;
-
+    if (calculator.operation !== undefined && calculator.currentOperand === '') return;
     calculator.operation = operation;
     calculator.previousOperand = `${calculator.currentOperand} ${calculator.operation}`;
     calculator.currentOperand = '';
@@ -82,7 +81,7 @@ function setOperation(operation) {
 
 
 function clear() {
-    if (calculator.currentOperand === '0') return;
+    if (calculator.currentOperand === '0' || calculator.currentOperand === '') return;
     if (calculator.currentOperand !== '0') {
         calculator.currentOperand = calculator.currentOperand.toString().slice(0, -1);
     }
@@ -111,11 +110,11 @@ function evaluate() {
     };
     result = operate(calculator.operation, previous, current);
     calculator.currentOperand = formatNumber(result);
-    calculator.previousOperand = `${previous} ${calculator.operation} ${current} =`;
+    calculator.previousOperand = `${previous} ${calculator.operation} 
+    ${current} =`;
     calculator.operation = undefined;
     updateDisplay();
 };
-
 
 
 // Display large numbers using scientific notation 
@@ -135,6 +134,7 @@ function formatNumber(number) {
    }
   }
 };
+
 
 
 // OPERATOR FUNCTIONS
