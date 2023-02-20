@@ -16,7 +16,7 @@ allClearBtn.addEventListener('click', allClear);
 equalsBtn.addEventListener('click', evaluate);
 
 
-//KEEP TRACK OF THE STATE OF THE CALCULATOR WITH CALCULATOR OBJECT 
+//KEEP TRACK OF THE STATE OF THE CALCULATOR
 
 const calculator = {
     currentOperand: '0',
@@ -25,7 +25,6 @@ const calculator = {
 };
 
 // UPDATE THE DISPLAY 
-
 
 function updateDisplay() {
     currentDisplay.textContent = calculator.currentOperand;
@@ -98,18 +97,24 @@ function allClear() {
 
 // CALCULATE SUM WHEN EQUALS BUTTON IS CLICKED
 
-
 function evaluate() {
     let result;
     const current = parseFloat(calculator.currentOperand);
     const previous = parseFloat(calculator.previousOperand);
+
     if (isNaN(current) || isNaN(previous) || !calculator.operation) {
       return;
     };
+
     result = operate(calculator.operation, previous, current);
     calculator.currentOperand = formatNumber(result);
-    calculator.previousOperand = `${previous} ${calculator.operation} 
-    ${current} =`;
+
+    if(previous.toString().length >= 12 || current.toString().length >= 12) {
+        calculator.previousOperand = `${previous} ${calculator.operation}\n${current} =`;
+    } else {
+        calculator.previousOperand = `${previous} ${calculator.operation} ${current} =`;
+    };
+
     calculator.operation = undefined;
     updateDisplay();
 };
@@ -134,9 +139,7 @@ function formatNumber(number) {
 };
 
 
-
 // OPERATOR FUNCTIONS
-
 
 const operate = (operator, a, b) => {
     switch(operator) {
@@ -169,7 +172,5 @@ const multiply = (a, b) => {
 const divide = (a, b) => {
     return a / b;
 };
-
-
 
 
