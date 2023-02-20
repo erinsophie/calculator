@@ -14,6 +14,7 @@ operatorBtn.forEach(button => button.addEventListener('click', () => setOperatio
 clearBtn.addEventListener('click', clear);
 allClearBtn.addEventListener('click', allClear);
 equalsBtn.addEventListener('click', evaluate);
+window.addEventListener('keydown', keyboardSupport);
 
 
 //KEEP TRACK OF THE STATE OF THE CALCULATOR
@@ -64,7 +65,6 @@ function exceedsLimit(digit) {
 
 //SET OPERATION 
 
-
 function setOperation(operation) {
     if (calculator.currentOperand === '0') return;
     if (calculator.operation !== undefined && calculator.currentOperand === '') return;
@@ -75,7 +75,6 @@ function setOperation(operation) {
 };
 
 // CLEAR SCREEN
-
 
 function clear() {
     if (calculator.currentOperand === '0' || calculator.currentOperand === '') return;
@@ -101,7 +100,6 @@ function evaluate() {
     let result;
     const current = parseFloat(calculator.currentOperand);
     const previous = parseFloat(calculator.previousOperand);
-
     if (isNaN(current) || isNaN(previous) || !calculator.operation) {
       return;
     };
@@ -121,8 +119,8 @@ function evaluate() {
 
 
 // Display large numbers using scientific notation 
-// if result has more than 10 digits before decimal point convert to scientifc notation which displays 1 digit to 6 decimal places
-// otherwise reduce any other result that is under that threshold but includes a decimal place to 2 decimal places 
+// if result has more than 10 digits before decimal point convert to scientifc notation which displays 1 digit with 6 decimal numbers
+// otherwise reduce any other result that is under that threshold but includes a decimal place to 2 decimal numbers
 // if there is no decimal in the result then display the result as normal
 
 function formatNumber(number) {
@@ -173,4 +171,30 @@ const divide = (a, b) => {
     return a / b;
 };
 
+
+// KEYBOARD SUPPORT 
+
+function keyboardSupport(e) {
+   if (e.key >= 0 && e.key <= 9) appendNumber(e.key);
+   if (e.key === "Backspace") clear();
+   if (e.key === "Escape") allClear();
+   if (e.key === "Enter") evaluate();
+   if (e.key === "=") evaluate();
+   if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+    setOperation(convertKeys(e.key));
+   };
+};
+
+function convertKeys(key) {
+    switch (key) {
+        case "/":
+            return "÷";
+        case "+":
+            return "+";
+        case "-":
+            return "-";
+        case "*":
+            return "x";
+    };
+};
 
