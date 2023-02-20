@@ -9,7 +9,6 @@ const previousDisplay = document.querySelector('[data-previous-operand]');
 
 // EVENT LISTENERS
 
-
 numberBtn.forEach(button => button.addEventListener('click', () => appendNumber(button.textContent)));
 operatorBtn.forEach(button => button.addEventListener('click', () => setOperation(button.textContent)));
 clearBtn.addEventListener('click', clear);
@@ -18,7 +17,6 @@ equalsBtn.addEventListener('click', evaluate);
 
 
 //KEEP TRACK OF THE STATE OF THE CALCULATOR WITH CALCULATOR OBJECT 
-
 
 const calculator = {
     currentOperand: '0',
@@ -40,7 +38,7 @@ function updateDisplay() {
 
 
 function appendNumber(number) {
-    if(exceedsCurrent()) return;
+    if(exceedsLimit(calculator.currentOperand)) return;
     if(calculator.previousOperand.includes("=")) return;
 
     if (number === "." && calculator.currentOperand.includes(".") || number === "." && calculator.currentOperand === '') return;
@@ -57,10 +55,10 @@ function appendNumber(number) {
     updateDisplay();
 };
 
-//LIMIT CURRENT CHARACTER INPUT 
+//LIMIT CHARACTER INPUT 
 
-function exceedsCurrent() {
-    if (calculator.currentOperand.length >= 18) {
+function exceedsLimit(digit) {
+    if (digit.length >= 18) {
        return true;
     }
 };
