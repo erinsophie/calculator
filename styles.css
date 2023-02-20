@@ -26,15 +26,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    width: 100%;
     min-height: 500px;
-    padding-top: 35px;
 }
 
 .calculator {
     border: 1px solid #00C44A;
     border-radius: 20px;
     padding: 20px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 /* SCREEN */
@@ -117,4 +118,3 @@ button.operator {
     color: #00A840;
     text-decoration: none;
 }
-

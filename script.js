@@ -78,6 +78,7 @@ function setOperation(operation) {
 
 function clear() {
     if (calculator.currentOperand === '0' || calculator.currentOperand === '') return;
+    if(calculator.previousOperand.includes("=")) return;
     if (calculator.currentOperand !== '0') {
         calculator.currentOperand = calculator.currentOperand.toString().slice(0, -1);
     }
@@ -176,6 +177,7 @@ const divide = (a, b) => {
 
 function keyboardSupport(e) {
    if (e.key >= 0 && e.key <= 9) appendNumber(e.key);
+   if (e.key === ".") appendNumber(e.key);
    if (e.key === "Backspace") clear();
    if (e.key === "Escape") allClear();
    if (e.key === "Enter") evaluate();
@@ -197,4 +199,3 @@ function convertKeys(key) {
             return "x";
     };
 };
-
