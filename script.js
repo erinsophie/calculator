@@ -119,9 +119,8 @@ function evaluate() {
 };
 
 
-// Display large numbers using scientific notation 
-// if result has more than 10 digits before decimal point convert to scientifc notation which displays 1 digit with 6 decimal numbers
-// otherwise reduce any other result that is under that threshold but includes a decimal place to 2 decimal numbers
+// if result has more than 10 digits before decimal point convert to exponential notation with a precision of 6 decimal places 
+// otherwise reduce any other result that is under that threshold but includes a decimal place to 2 decimal places 
 // if there is no decimal in the result then display the result as normal
 
 function formatNumber(number) {
